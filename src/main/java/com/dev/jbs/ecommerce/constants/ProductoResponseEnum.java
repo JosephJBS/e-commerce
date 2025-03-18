@@ -11,7 +11,9 @@ public enum ProductoResponseEnum {
     PRODUCT_CREATED(201,"Producto Registrado"),
     NO_PRODUCTS_FOUND(404, "No hay productos activos"),
     NO_PRODUCT_FOUND(404, "No se encontro el producto seleccionado"),
-    BAD_REQUEST_PRODUCTO(400, "No se registro el producto");
+    NON_ACTIVE_PRODUCT(204, "Producto inactivo"),
+    BAD_REQUEST_PRODUCTO(400, "No se registro el producto"),
+    PRODUCT_UPDATE(200, "Producto actulizado");
 
     private final int code;
     private final String message;

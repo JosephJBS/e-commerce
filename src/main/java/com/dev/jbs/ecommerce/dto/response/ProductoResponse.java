@@ -7,11 +7,11 @@ import java.util.List;
 
 public class ProductoResponse extends  BasicResponse{
 
-    public static BasicResponse productoNoEncontrados(){
+    public static BasicResponse productoNoEncontrado() {
         return BasicResponse
                 .builder()
-                .status(ProductoResponseEnum.NO_PRODUCTS_FOUND.getCode())
-                .message(ProductoResponseEnum.NO_PRODUCTS_FOUND.getMessage())
+                .status(ProductoResponseEnum.NO_PRODUCT_FOUND.getCode())
+                .message(ProductoResponseEnum.NO_PRODUCT_FOUND.getMessage())
                 .build();
     }
 
@@ -60,6 +60,24 @@ public class ProductoResponse extends  BasicResponse{
                 .data(null)
                 .message(ProductoResponseEnum.PRODUCTS_DEACTIVATE.getMessage())
                 .metadata(null)
+                .build();
+    }
+
+    public static BasicResponse productoEditado(Producto producto){
+        return BasicResponse
+                .builder()
+                .status(ProductoResponseEnum.PRODUCT_UPDATE.getCode())
+                .data(producto)
+                .message(ProductoResponseEnum.PRODUCT_UPDATE.getMessage())
+                .metadata(null)
+                .build();
+    }
+
+    public static BasicResponse productosInactivo(){
+        return BasicResponse
+                .builder()
+                .status(ProductoResponseEnum.NON_ACTIVE_PRODUCT.getCode())
+                .message(ProductoResponseEnum.NON_ACTIVE_PRODUCT.getMessage())
                 .build();
     }
 }

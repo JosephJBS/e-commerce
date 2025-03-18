@@ -1,6 +1,7 @@
 package com.dev.jbs.ecommerce.service;
 
 import com.dev.jbs.ecommerce.dto.request.ProductoRequest;
+import com.dev.jbs.ecommerce.dto.request.ProductoUpdate;
 import com.dev.jbs.ecommerce.dto.response.BasicResponse;
 import com.dev.jbs.ecommerce.dto.response.ProductoResponse;
 import com.dev.jbs.ecommerce.model.Producto;
@@ -68,9 +69,30 @@ public class ProductoServiceImpl implements ProductoService {
 
         int modifiedRows = productoRepository.deactivateProducto(id);
 
-        if(modifiedRows == 0) return ProductoResponse.productoNoEncontrados();
+        if(modifiedRows == 0) return ProductoResponse.productoNoEncontrado();
 
         return ProductoResponse.productoEliminado();
 
     }
+
+    @Override
+    public BasicResponse updateProducto(ProductoUpdate productoUpdate) {
+        Optional<Producto> productoOptional = productoRepository.findById(productoUpdate.id());
+
+        if(!productoOptional.isPresent()) return ProductoResponse.productoNoEncontrado();
+
+        Producto producto = productoOptional.get();
+
+        if(!producto.isEstado()) return ProductoResponse.productosInactivo();
+
+        Optional.ofNullable(productoUpdate.descripcion()).ifPresent(producto::setDescripcion);
+        Optional.ofNullable(productoUpdate.nombre()).ifPresent(producto::setNombre);
+        Optional.ofNullable(productoUpdate.precio()).ifPresent(producto::setPrecio);
+        Optional.ofNullable(productoUpdate.cantidad()).ifPresent(producto::setCantidad);
+
+        productoRepository.save(producto);
+
+        return ProductoResponse.productoEditado(producto);
+    }
+
 }

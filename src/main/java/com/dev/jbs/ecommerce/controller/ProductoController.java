@@ -1,8 +1,8 @@
 package com.dev.jbs.ecommerce.controller;
 
 import com.dev.jbs.ecommerce.dto.request.ProductoRequest;
+import com.dev.jbs.ecommerce.dto.request.ProductoUpdate;
 import com.dev.jbs.ecommerce.dto.response.BasicResponse;
-import com.dev.jbs.ecommerce.model.Producto;
 import com.dev.jbs.ecommerce.service.ProductoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,7 +89,23 @@ public class ProductoController {
         }
     }
 
-    @DeleteMapping("/delete/{id}")
+    @PatchMapping("/update")
+    public ResponseEntity<BasicResponse> updateProducts(@RequestBody ProductoUpdate productoUpdate) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(productoService.updateProducto(productoUpdate));
+        } catch (Exception e) {
+            log.error("Error al obtener productos: {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(BasicResponse.builder()
+                            .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                            .message("Error al obtener productos")
+                            .data(null)
+                            .build());
+        }
+    }
+
+
+    @PatchMapping("/delete/{id}")
     public ResponseEntity<BasicResponse> desactivarProducto (@PathVariable Long id){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(productoService.deactivateProducto(id));
