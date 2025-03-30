@@ -51,7 +51,7 @@ public class AuthController {
                     .body(authService.login(request.get("username"),request.get("password")));
             //authService.register(usuario);
         }catch (Exception e) {
-            log.error("Error al registrarse: {}", e.getMessage());
+            log.error("Error al autenticarse: {}", e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(BasicResponse.builder()
                             .status(HttpStatus.INTERNAL_SERVER_ERROR.value())

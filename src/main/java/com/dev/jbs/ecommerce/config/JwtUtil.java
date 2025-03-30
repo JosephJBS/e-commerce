@@ -1,6 +1,5 @@
 package com.dev.jbs.ecommerce.config;
 
-import com.dev.jbs.ecommerce.constants.Constants;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -22,7 +21,7 @@ public class JwtUtil {
         return Jwts.builder()
                 .setSubject(username)
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60)) // 1 hora
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 1)) // 1 hora
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
     }

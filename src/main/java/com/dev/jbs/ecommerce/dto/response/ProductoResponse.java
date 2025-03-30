@@ -5,7 +5,7 @@ import com.dev.jbs.ecommerce.model.Producto;
 
 import java.util.List;
 
-public class ProductoResponse extends  BasicResponse{
+public class ProductoResponse extends BasicResponse{
 
     public static BasicResponse productoNoEncontrado() {
         return BasicResponse
